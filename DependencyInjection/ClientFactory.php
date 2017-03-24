@@ -140,6 +140,13 @@ class ClientFactory
     protected $filters;
 
     /**
+     * Custom callbacks to register on the client.
+     *
+     * @var callable[]
+     */
+    protected $customCallbacks = [];
+
+    /**
      * Create a new client factory instance.
      *
      * @param \Bugsnag\BugsnagBundle\Request\SymfonyResolver                                           $resolver
@@ -204,6 +211,26 @@ class ClientFactory
     }
 
     /**
+     * Add a custom callback to be registered on the client.
+     *
+     * @param callable|array $callable
+     */
+    public function addCallback($callable)
+    {
+        // If the parameter is not a callable (if the method name does not exist on the class for example),
+        // then throw an exception informing the user
+        if (! is_callable($callable)) {
+            throw new \RuntimeException(sprintf(
+                "Could not add Bugsnag callback. Class %s does not contain the \"%s\" method.",
+                get_class($callable[0]),
+                $callable[1]
+            ));
+        }
+
+        $this->customCallbacks[] = $callable;
+    }
+
+    /**
      * Make a new client instance.
      *
      * @return \Bugsnag\Client
@@ -246,6 +273,10 @@ class ClientFactory
 
         if ($this->filters) {
             $client->setFilters($this->filters);
+        }
+
+        foreach ($this->customCallbacks as $callable) {
+            $client->registerCallback($callable);
         }
 
         return $client;
