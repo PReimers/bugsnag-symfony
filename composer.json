@@ -1,5 +1,5 @@
 {
-    "name": "bugsnag/bugsnag-symfony",
+    "name": "preimers/bugsnag-symfony",
     "description": "Official Bugsnag notifier for Symfony applications.",
     "keywords": ["bugsnag", "exceptions", "errors", "logging", "tracking", "symfony"],
     "homepage": "https://github.com/bugsnag/bugsnag-symfony",
