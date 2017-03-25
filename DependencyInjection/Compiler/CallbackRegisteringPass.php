@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class CallbackRegisteringPass implements CompilerPassInterface
 {
-    const FACTORY_SERVICE_NAME = 'bugsnag.factory';
+    const BUGSNAG_SERVICE_NAME = 'bugsnag';
     const TAG_NAME = 'bugsnag.callback';
 
     /**
@@ -16,23 +16,23 @@ class CallbackRegisteringPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (!$container->has(self::FACTORY_SERVICE_NAME)) {
+        if (!$container->has(self::BUGSNAG_SERVICE_NAME)) {
             return;
         }
 
-        // Get the Bugsnag factory service
-        $bugsnagFactory = $container->findDefinition(self::FACTORY_SERVICE_NAME);
+        // Get the Bugsnag service
+        $bugsnag = $container->findDefinition(self::BUGSNAG_SERVICE_NAME);
 
         // Get all services tagged as a callback
         $callbackServices = $container->findTaggedServiceIds(self::TAG_NAME);
 
-        // Add each callback to the factory service via an addCallback call
+        // Register each callback on the bugsnag service
         foreach ($callbackServices as $id => $tags) {
             foreach ($tags as $attributes) {
                 // Get the method name to call on the service from the tag definition,
                 // defaulting to registerCallback
                 $method = isset($attributes['method']) ? $attributes['method'] : 'registerCallback';
-                $bugsnagFactory->addMethodCall('addCallback', [[new Reference($id), $method]]);
+                $bugsnag->addMethodCall('registerCallback', [[new Reference($id), $method]]);
             }
         }
     }
