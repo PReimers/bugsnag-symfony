@@ -185,9 +185,9 @@ class ClientFactory
     {
         // If the parameter is not a callable (if the method name does not exist on the class for example),
         // then throw an exception informing the user
-        if (! is_callable($callable)) {
+        if (!is_callable($callable)) {
             throw new \RuntimeException(sprintf(
-                "Could not add Bugsnag callback. Class %s does not contain the \"%s\" method.",
+                'Could not add Bugsnag callback. Class %s does not contain the "%s" method.',
                 get_class($callable[0]),
                 $callable[1]
             ));
