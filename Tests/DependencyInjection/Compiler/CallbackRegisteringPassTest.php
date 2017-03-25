@@ -2,8 +2,8 @@
 
 namespace Bugsnag\BugsnagBundle\Tests\DependencyInjection\Compiler;
 
-use Bugsnag\BugsnagBundle\DependencyInjection\ClientFactory;
 use Bugsnag\BugsnagBundle\DependencyInjection\Compiler\CallbackRegisteringPass;
+use Bugsnag\Client;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -15,8 +15,8 @@ class CallbackRegisteringPassTest extends TestCase
     {
         $containerBuilder = new ContainerBuilder();
 
-        $factory = new Definition(ClientFactory::class);
-        $containerBuilder->setDefinition(CallbackRegisteringPass::FACTORY_SERVICE_NAME, $factory);
+        $bugsnag = new Definition(Client::class);
+        $containerBuilder->setDefinition(CallbackRegisteringPass::BUGSNAG_SERVICE_NAME, $bugsnag);
 
         $taggedCallbackOne = new Definition();
         $taggedCallbackOne->addTag(CallbackRegisteringPass::TAG_NAME);
@@ -29,10 +29,10 @@ class CallbackRegisteringPassTest extends TestCase
         $pass = new CallbackRegisteringPass();
         $pass->process($containerBuilder);
 
-        $this->assertSame(2, count($factory->getMethodCalls()));
-        $this->assertSame('addCallback', $factory->getMethodCalls()[0][0]);
-        $this->assertEquals([new Reference('callback_1'), 'registerCallback'], $factory->getMethodCalls()[0][1][0]);
-        $this->assertSame('addCallback', $factory->getMethodCalls()[1][0]);
-        $this->assertEquals([new Reference('callback_2'), 'customMethod'], $factory->getMethodCalls()[1][1][0]);
+        $this->assertSame(2, count($bugsnag->getMethodCalls()));
+        $this->assertSame('registerCallback', $bugsnag->getMethodCalls()[0][0]);
+        $this->assertEquals([new Reference('callback_1'), 'registerCallback'], $bugsnag->getMethodCalls()[0][1][0]);
+        $this->assertSame('registerCallback', $bugsnag->getMethodCalls()[1][0]);
+        $this->assertEquals([new Reference('callback_2'), 'customMethod'], $bugsnag->getMethodCalls()[1][1][0]);
     }
 }
