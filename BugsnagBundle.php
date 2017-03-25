@@ -16,7 +16,8 @@ class BugsnagBundle extends Bundle
     const VERSION = '1.0.0';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     *
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
     public function build(ContainerBuilder $container)

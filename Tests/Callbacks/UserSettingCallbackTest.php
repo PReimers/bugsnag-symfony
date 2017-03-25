@@ -74,7 +74,7 @@ class UserSettingCallbackTest extends TestCase
             ->expects($this->once())
             ->method('setUser')
             ->with([
-                'id' => $user->getUsername()
+                'id' => $user->getUsername(),
             ]);
 
         $callback = new UserSettingCallback($tokenStorageMock, $authorizationChecker, true);

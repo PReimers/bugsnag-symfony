@@ -30,8 +30,8 @@ class UserSettingCallback
 
     /**
      * @param null|\Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokens
-     * @param null|\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface $checker
-     * @param bool $setUser
+     * @param null|\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface        $checker
+     * @param bool                                                                                     $setUser
      */
     public function __construct(
         TokenStorageInterface $tokens = null,
@@ -50,7 +50,7 @@ class UserSettingCallback
     {
         // If told to not set the user, or the security services were not passed in
         // (not registered in the container), then exit early
-        if (! $this->setUser || is_null($this->tokens) || is_null($this->checker)) {
+        if (!$this->setUser || is_null($this->tokens) || is_null($this->checker)) {
             return;
         }
 

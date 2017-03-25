@@ -124,21 +124,21 @@ class ClientFactory
     /**
      * Create a new client factory instance.
      *
-     * @param \Bugsnag\BugsnagBundle\Request\SymfonyResolver                                           $resolver
-     * @param string|null                                                                              $key
-     * @param string|null                                                                              $endpoint
-     * @param bool                                                                                     $callbacks
-     * @param string|null                                                                              $type
-     * @param string|null                                                                              $version
-     * @param bool                                                                                     $batch
-     * @param string|null                                                                              $hostname
-     * @param bool                                                                                     $code
-     * @param string|null                                                                              $strip
-     * @param string|null                                                                              $project
-     * @param string|null                                                                              $root
-     * @param string|null                                                                              $stage
-     * @param string[]|null                                                                            $stages
-     * @param string[]|null                                                                            $filters
+     * @param \Bugsnag\BugsnagBundle\Request\SymfonyResolver $resolver
+     * @param string|null                                    $key
+     * @param string|null                                    $endpoint
+     * @param bool                                           $callbacks
+     * @param string|null                                    $type
+     * @param string|null                                    $version
+     * @param bool                                           $batch
+     * @param string|null                                    $hostname
+     * @param bool                                           $code
+     * @param string|null                                    $strip
+     * @param string|null                                    $project
+     * @param string|null                                    $root
+     * @param string|null                                    $stage
+     * @param string[]|null                                  $stages
+     * @param string[]|null                                  $filters
      *
      * @return void
      */

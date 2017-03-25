@@ -16,7 +16,7 @@ class CallbackRegisteringPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (! $container->has(self::FACTORY_SERVICE_NAME)) {
+        if (!$container->has(self::FACTORY_SERVICE_NAME)) {
             return;
         }
 
